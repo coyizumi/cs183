@@ -17,7 +17,7 @@ db.define_table('posting',
                 Field('name'), # Name of the user who posted
                 Field('user_id', db.auth_user), # User id of poster, do we need this?
                 Field('city'), # City of event
-                Field('usstate'), # State of event
+                Field('state'), # State of event
                 Field('email'), # Email address of poster
                 Field('category'), # Category of event
                 Field('date_posted', 'datetime'), # Date the event was posted
@@ -39,10 +39,10 @@ db.posting.email.requires = IS_EMAIL()
 db.posting.email.readable = False
 db.posting.category.requires = IS_IN_SET(CATEGORY)
 db.posting.category.required = True
-db.posting.usstate.requires = IS_IN_SET(STATES,
+db.posting.state.requires = IS_IN_SET(STATES,
 								   zero=None)
-db.posting.usstate.required = True
-db.posting.usstate.default='California'
+db.posting.state.required = True
+db.posting.state.default='California'
 db.posting.city.required = True
 db.posting.title.required = True
 db.posting.body.required = True
