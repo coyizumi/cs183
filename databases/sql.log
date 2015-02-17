@@ -78,3 +78,23 @@ CREATE TABLE userprofile(
     email CHAR(512)
 );
 success!
+timestamp: 2015-02-17T14:03:04.996000
+ALTER TABLE posting ADD us_state CHAR(512);
+success!
+success!
+success!
+timestamp: 2015-02-17T14:04:09.279000
+ALTER TABLE userprofile ADD us_state CHAR(512);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!

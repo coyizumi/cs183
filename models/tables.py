@@ -17,7 +17,7 @@ db.define_table('posting',
                 Field('name'), # Name of the user who posted
                 Field('user_id', db.auth_user), # User id of poster, do we need this?
                 Field('city'), # City of event
-                Field('usstate'), # State of event
+                Field('us_state'), # State of event
                 Field('email'), # Email address of poster
                 Field('category'), # Category of event
                 Field('date_posted', 'datetime'), # Date the event was posted
@@ -30,7 +30,7 @@ db.define_table('userprofile',
                 Field('last_name'),
                 Field('user_id', db.auth_user),
                 Field('city'),
-                Field('usstate'),
+                Field('us_state'),
                 Field('email')
                )
 
@@ -47,10 +47,10 @@ db.posting.email.requires = IS_EMAIL()
 db.posting.email.readable = False
 db.posting.category.requires = IS_IN_SET(CATEGORY)
 db.posting.category.required = True
-db.posting.usstate.requires = IS_IN_SET(STATES,
+db.posting.us_state.requires = IS_IN_SET(STATES,
 								   zero=None)
-db.posting.usstate.required = True
-db.posting.usstate.default='California'
+db.posting.us_state.required = True
+db.posting.us_state.default='California'
 db.posting.city.required = True
 db.posting.title.required = True
 db.posting.body.required = True
@@ -60,8 +60,8 @@ db.userprofile.last_name.required = True
 db.userprofile.user_id.default = auth.user_id
 db.userprofile.user_id.writable = db.userprofile.user_id.readable = False
 db.userprofile.city.required = True
-db.userprofile.usstate.required = True
-db.userprofile.usstate.requires = IS_IN_SET(STATES, zero=None)
-db.userprofile.usstate.default = "California"
+db.userprofile.us_state.required = True
+db.userprofile.us_state.requires = IS_IN_SET(STATES, zero=None)
+db.userprofile.us_state.default = "California"
 db.userprofile.email.required = True
 db.userprofile.email.requires=IS_EMAIL()
