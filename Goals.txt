@@ -1,0 +1,32 @@
+Welcome to the crazy BBoard! (but not really)*
+Hide name (option to show someone)----------
+Hide Email (option to show someone)---------
+remove phone----------
+Change categories------
+City, state, country?------
+
+Change name to username
+Invite users, (private message or email),
+	"Hey, I'm weird and want to see 50 shades of gray at this theatre"
+
+
+
+Splash Screen (State, city, category,)
+Private messaging,
+Twitter feed (Maybe)
+Friends list?
+
+
+
+
+*I like my shoes.
+
+____________________________________________________________________________________________________________________________________________________________________
+
+Meet 2
+Basic funct of editing profile, maybe changing login page.
+make posts  (I want to ee 50 shades of gray this weekend)
+Date of event in the posting
+perhaps calender api, sort by dates?
+invite button.
+get rid of horrendous top bar
