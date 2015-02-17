@@ -25,10 +25,18 @@ db.define_table('posting',
                 Field('body', 'text'), # Body of posting
                 )
 
+db.define_table('userprofile',
+                Field('first_name'),
+                Field('last_name'),
+                Field('user_id', db.auth_user),
+                Field('city'),
+                Field('usstate'),
+                Field('email')
+               )
+
 db.posting.id.readable = False
 db.posting.body.label = 'Body'
 db.posting.name.readable = False
-
 # We may want to move this to default.py so we can initialize the time when the post is made
 # rather than when the form is created
 db.posting.date_posted.default = datetime.utcnow()
@@ -46,3 +54,14 @@ db.posting.usstate.default='California'
 db.posting.city.required = True
 db.posting.title.required = True
 db.posting.body.required = True
+
+db.userprofile.first_name.required = True
+db.userprofile.last_name.required = True
+db.userprofile.user_id.default = auth.user_id
+db.userprofile.user_id.writable = db.userprofile.user_id.readable = False
+db.userprofile.city.required = True
+db.userprofile.usstate.required = True
+db.userprofile.usstate.requires = IS_IN_SET(STATES, zero=None)
+db.userprofile.usstate.default = "California"
+db.userprofile.email.required = True
+db.userprofile.email.requires=IS_EMAIL()

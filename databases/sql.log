@@ -67,3 +67,14 @@ CREATE TABLE posting(
     body TEXT
 );
 success!
+timestamp: 2015-02-16T21:30:54.201000
+CREATE TABLE userprofile(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(512),
+    last_name CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    city CHAR(512),
+    usstate CHAR(512),
+    email CHAR(512)
+);
+success!

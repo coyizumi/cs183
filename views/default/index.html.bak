@@ -1,5 +1,6 @@
 {{left_sidebar_disabled=True,right_sidebar_disabled=True,('message' in globals())}}
 {{extend 'layout.html'}}
 <span>
+    {{=A('Edit Profile', _class='btn', _href=URL('default', 'profile', vars=dict(edit='true')))}}
     {{=A('View Profile', _class='btn', _href=URL('default', 'profile', vars=dict(edit='false')))}}
 </span>
