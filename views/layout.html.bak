@@ -80,7 +80,7 @@ bar ================================================== -->
           <span class="icon-bar"></span>
         </button>
         <!--{{=response.logo or ''}}-->
-          <span style="line-height: 40px; color: white; font-weight: bold; font-size: 20px; padding: 0px 20px 0px 0px;">
+          <span style="line-height: 40px; color: white; font-weight: bold; font-size: 20px;">
               Don't Go Alone
           </span>
           <span style="line-height: 40px;">
