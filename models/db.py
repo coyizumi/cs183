@@ -47,6 +47,22 @@ auth = Auth(db)
 service = Service()
 plugins = PluginManager()
 
+STATES = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
+'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois',
+'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
+'Massachussetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri',
+'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 
+'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 
+'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
+'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 
+'Wisconsin', 'Wyoming']
+
+#Adding custom fields to auth
+auth.settings.extra_fields[auth.settings.table_user_name] = [
+    Field('city'),
+    Field('us_state', requires=IS_IN_SET(STATES, zero=None), default=STATES[0]),
+    ]
+
 ## create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)
 
