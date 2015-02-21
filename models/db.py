@@ -59,7 +59,7 @@ STATES = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
 
 #Adding custom fields to auth
 auth.settings.extra_fields[auth.settings.table_user_name] = [
-    Field('city'),
+    Field('city', requires=IS_NOT_EMPTY()),
     Field('us_state', requires=IS_IN_SET(STATES, zero=None), default=STATES[0]),
     ]
 
