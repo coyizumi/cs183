@@ -25,15 +25,6 @@ db.define_table('posting',
                 Field('body', 'text'), # Body of posting
                 )
 
-db.define_table('userprofile',
-                Field('first_name'),
-                Field('last_name'),
-                Field('user_id', db.auth_user),
-                Field('city'),
-                Field('us_state'),
-                Field('email')
-               )
-
 db.posting.id.readable = False
 db.posting.body.label = 'Body'
 db.posting.name.readable = False
@@ -54,14 +45,3 @@ db.posting.us_state.default='California'
 db.posting.city.required = True
 db.posting.title.required = True
 db.posting.body.required = True
-
-db.userprofile.first_name.required = True
-db.userprofile.last_name.required = True
-db.userprofile.user_id.default = auth.user_id
-db.userprofile.user_id.writable = db.userprofile.user_id.readable = False
-db.userprofile.city.required = True
-db.userprofile.us_state.required = True
-db.userprofile.us_state.requires = IS_IN_SET(STATES, zero=None)
-db.userprofile.us_state.default = "California"
-db.userprofile.email.required = True
-db.userprofile.email.requires=IS_EMAIL()
