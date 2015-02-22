@@ -42,6 +42,28 @@ def profile():
         
     return dict(content=content)
 
+def add():
+    if not auth.user:
+        return dict(content="")
+    content = SQLFORM.factory (
+        Field('us_state', label="State", default=auth.user.us_state, requires=IS_IN_SET(STATES)),
+        Field('city', label="City", default=auth.user.city, requires=IS_NOT_EMPTY()),
+        Field('event_date', 'date', label="Event Date", requires=IS_DATE(format=T('%Y-%m-%d'))),
+        Field('event_type', label="Event Type", requires=IS_IN_SET(CATEGORY)),
+        Field('body', 'text', label='Event Info', requires=IS_NOT_EMPTY()),
+        )
+    if content.process().accepted:
+        db.posting.insert (
+            user_id=auth.user,
+            us_state=content.vars.us_state,
+            city=content.vars.City,
+            event_date=content.vars.event_date,
+            category=content.vars.event_type,
+            body=content.vars.body,
+            )
+        redirect(URL('default', 'index',))
+    return dict(content=content)
+
 def user():
     """
     exposes:

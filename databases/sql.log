@@ -200,3 +200,27 @@ success!
 success!
 success!
 success!
+timestamp: 2015-02-21T22:11:40.982763
+ALTER TABLE posting ADD event_date DATE;
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
