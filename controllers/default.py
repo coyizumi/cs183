@@ -32,7 +32,8 @@ def profile():
         content = SQLFORM.factory(Field('firstname', label='First Name', default=user.first_name if user else ""),
                                   Field('lastname', label='Last Name', default=user.last_name if user else ""),
                                   Field('city', label='City', default=user.city if user else ""),
-                                  Field('state', requires=IS_IN_SET(STATES, zero=None), default="California") 
+                                  Field('state', requires=IS_IN_SET(STATES, zero=None), default="California"),
+                                  Field('Event Date', 'date', requires=IS_DATE(format=T('%Y-%m-%d'))),
                                   )
         
         #content = SQLFORM.factory(db.userprofile)

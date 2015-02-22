@@ -21,6 +21,7 @@ db.define_table('posting',
                 Field('email'), # Email address of poster
                 Field('category'), # Category of event
                 Field('date_posted', 'datetime'), # Date the event was posted
+                Field('event_date', 'date'),
                 Field('title'), # Title of posting, do we need this?
                 Field('body', 'text'), # Body of posting
                 )
