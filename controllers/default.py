@@ -42,8 +42,19 @@ def profile():
         
     return dict(content=content)
 
+def view_profile():
+    user_id = request.args(0) or None
+    if not user_id:
+        return dict (valid=False)
+    user = db.auth_user[user_id]
+    return dict (user=user, valid=(user != None))
+
+
+
 def add():
     if not auth.user:
+        # TODO add some flash here saying "Can only post when logged in"
+        # Might be better to require login. Will look that up later
         return dict(content="")
     content = SQLFORM.factory (
         Field('us_state', label="State", default=auth.user.us_state, requires=IS_IN_SET(STATES)),
