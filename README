@@ -1,1 +1,3 @@
-Hello, I like my shoes.
+When testing, be sure to start scheduler before trying to send email. To start scheduler
+go to the scheduler menu in the web2py graphical starter (the one that lets you choose port)
+then say start DontGoAlone (or whatever your project is named).
