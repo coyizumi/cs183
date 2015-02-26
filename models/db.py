@@ -68,9 +68,10 @@ auth.define_tables(username=False, signature=False)
 
 ## configure email
 mail = auth.settings.mailer
-mail.settings.server = 'logging' if request.is_local else 'smtp.gmail.com:587'
-mail.settings.sender = 'you@gmail.com'
-mail.settings.login = 'username:password'
+mail.settings.server = 'smtp.gmail.com:587'
+mail.settings.sender = 'dontgoalonesite@gmail.com'
+mail.settings.login = '''dontgoalonesite@gmail.com:p8$HWc*HqaapkYVF6e6cQDEIZ8^nNvTGXicrxOylSt73#uiSfQrs4DOsLH211GJ8'''
+
 
 ## configure auth policy
 auth.settings.registration_requires_verification = False

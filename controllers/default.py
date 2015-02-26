@@ -73,6 +73,22 @@ def add():
         redirect(URL('default', 'index',))
     return dict(content=content)
 
+
+def mail_test():
+    content = SQLFORM.factory (
+        Field('recip', default='coyizumi@gmail.com', requires=IS_EMAIL()),
+        Field('subject', default='I like my shoes'),
+        Field('message', 'text', default='Oh my'),
+        )
+    if content.process().accepted:
+        
+        scheduler.queue_task('task_send',pvars=dict(to=[content.vars.recip],
+                                                    subject=content.vars.subject,
+                                                    message=content.vars.message),
+                                                    timeout=1000)
+        session.flash = T('Processed')
+    return dict (content=content)
+
 def user():
     """
     exposes:
