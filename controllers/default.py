@@ -44,10 +44,8 @@ def profile():
 
 def view_profile():
     user_id = request.args(0) or None
-    if not user_id:
-        return dict (valid=False)
     user = db.auth_user[user_id]
-    return dict (user=user, valid=(user != None))
+    return dict (user=user)
 
 
 
