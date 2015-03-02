@@ -91,8 +91,42 @@ def list_items():
     else: page=0
     items_per_page=20
     limitby=(page*items_per_page,(page+1)*items_per_page+1)
-    rows=db().select(db.posting.ALL,limitby=limitby)
-    return dict(rows=rows,page=page,items_per_page=items_per_page)
+    state = request.vars.us_state or 'California'
+    query = db.posting.us_state == state
+
+    if request.vars.city:
+        query &= db.posting.city == request.vars.city
+    if request.vars.date:
+        query &= db.posting.event_date == request.vars.date
+    if request.vars.category:
+        query &= db.posting.category == request.vars.category
+
+    rows=db(query).select(limitby=limitby)
+    return dict(rows=rows,page=page,items_per_page=items_per_page, list_vars=request.vars)
+
+# http://www.web2pyslices.com/slice/show/1552/search-form
+
+def search():
+    form = SQLFORM.factory(
+        Field ('us_state', required=True, requires=IS_IN_SET(STATES, zero=None), default='California'),
+        Field ('city'),
+        Field ('event_date', 'date'),
+        Field ('category', requires=IS_IN_SET(CATEGORY)),
+        formstyle='divs',
+        submit_button='Search',
+        )
+    if form.process().accepted:
+        list_vars = dict(us_state=form.vars.us_state)
+        if form.vars.city:
+            list_vars['city'] = form.vars.city
+        if form.vars.event_date:
+            list_vars['date'] = form.vars.event_date
+        if form.vars.category:
+            list_vars['category'] = form.vars.category
+        redirect (URL ('default', 'list_items', vars=list_vars))
+
+    return dict(form=form)
+
 
 def user():
     """
