@@ -89,11 +89,13 @@ def mail_test():
 def list_items():
     if len(request.args): page=int(request.args[0])
     else: page=0
-    items_per_page=20
+    items_per_page=3
+    # Used for pagination
     limitby=(page*items_per_page,(page+1)*items_per_page+1)
+
+    # Apply search terms to query
     state = request.vars.us_state or 'California'
     query = db.posting.us_state == state
-
     if request.vars.city:
         query &= db.posting.city == request.vars.city
     if request.vars.date:
@@ -111,7 +113,7 @@ def search():
         Field ('us_state', required=True, requires=IS_IN_SET(STATES, zero=None), default='California'),
         Field ('city'),
         Field ('event_date', 'date'),
-        Field ('category', requires=IS_IN_SET(CATEGORY)),
+        Field ('category', requires=IS_EMPTY_OR(IS_IN_SET(CATEGORY))),
         formstyle='divs',
         submit_button='Search',
         )
