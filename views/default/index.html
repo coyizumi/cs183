@@ -1,6 +1,6 @@
 {{left_sidebar_disabled=True,right_sidebar_disabled=True,('message' in globals())}}
 {{extend 'layout.html'}}
-
+{{from time import strftime}}
 {{for i,row in enumerate(rows):}}
 {{if i==items_per_page: break}}
 <!-- this entire div will become the link to the posting -->
@@ -11,7 +11,7 @@
         {{=row.city}}<br />
     {{=row.us_state}}<br />
     <!-- is there a way we can get the date to show up like "March 2, 2015" or something? -->
-    {{=row.event_date}}<br />
+    {{=row.event_date.strftime ("%B %d, %Y")}}<br />
     {{=row.category}} <br />
     <!-- body will be displayed in the post itself
     {{=row.body}} <br /> -->
