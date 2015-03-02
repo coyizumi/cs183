@@ -65,7 +65,7 @@ def add():
         db.posting.insert (
             user_id=auth.user,
             us_state=content.vars.us_state,
-            city=content.vars.City,
+            city=content.vars.city,
             event_date=content.vars.event_date,
             category=content.vars.event_type,
             body=content.vars.body,
@@ -88,6 +88,16 @@ def mail_test():
                                                     timeout=1000)
         session.flash = T('Processed')
     return dict (content=content)
+
+#Used for pagination
+# http://web2py.com/books/default/chapter/29/14/other-recipes#Pagination
+def list_items():
+    if len(request.args): page=int(request.args[0])
+    else: page=0
+    items_per_page=20
+    limitby=(page*items_per_page,(page+1)*items_per_page+1)
+    rows=db().select(db.posting.ALL,limitby=limitby)
+    return dict(rows=rows,page=page,items_per_page=items_per_page)
 
 def user():
     """

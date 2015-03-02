@@ -394,3 +394,36 @@ success!
 success!
 success!
 success!
+success!
+success!
+timestamp: 2015-03-01T19:43:55.782459
+CREATE TABLE prime(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pvalue INTEGER
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!

@@ -37,3 +37,5 @@ db.posting.us_state.default='California'
 db.posting.city.required = True
 db.posting.body.required = True
 db.posting.event_date.required = True
+
+
