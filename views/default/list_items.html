@@ -1,0 +1,20 @@
+{{left_sidebar_disabled=True,right_sidebar_disabled=True,('message' in globals())}}
+
+{{extend 'layout.html'}}
+
+{{for i,row in enumerate(rows):}}
+{{if i==items_per_page: break}}
+{{=row.user_id.first_name}}<br />
+{{=row.us_state}}<br />
+{{=row.city}}<br />
+{{=row.event_date}}<br />
+<hr />
+{{pass}}
+
+{{if page:}}
+<a href="{{=URL(args=[page-1])}}">previous</a>
+{{pass}}
+
+{{if len(rows)>items_per_page:}}
+<a href="{{=URL(args=[page+1])}}">next</a>
+{{pass}}
