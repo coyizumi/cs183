@@ -80,11 +80,12 @@ bar ================================================== -->
           <span class="icon-bar"></span>
         </button>
         <!--{{=response.logo or ''}}-->
-          <span style="line-height: 40px; color: white; font-weight: bold; font-size: 20px;">
+          <span style="line-height: 40px; color: white; font-weight: bold; font-size: 20px; padding: 0px 20px 0px 0px;">
               Don't Go Alone
           </span>
           <span style="line-height: 40px;">
-              {{=A("Home", _style="color: white;", _href=URL('default', 'index'))}}
+              {{=A("Home", _style="font-size: 20px; color: white; margin: 0px 20px 0px 20px;", _href=URL('default', 'index'))}}
+              {{=A("Search", _style="color: white; margin 20px;", _href=URL('default', 'search'))}}
           </span>
         <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
         <div class="{{='nav-collapse' if is_mobile else 'nav'}}">

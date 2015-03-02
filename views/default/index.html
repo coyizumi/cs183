@@ -3,13 +3,23 @@
 
 {{for i,row in enumerate(rows):}}
 {{if i==items_per_page: break}}
-{{=row.user_id.first_name}}<br />
-{{=row.us_state}}<br />
-{{=row.city}}<br />
-{{=row.event_date}}<br />
-{{=row.category}} <br />
-{{=row.body}} <br />
-<hr />
+<!-- this entire div will become the link to the posting -->
+<div class="span3" style="float: left; border: 2px solid black; padding: 25px; margin: 5px;">
+    <span style="margin: 0px auto; float:left;">
+    <!-- was this going to be just a user id instead of a name? -->
+    {{=row.user_id.first_name}}<br />
+        {{=row.city}}<br />
+    {{=row.us_state}}<br />
+    <!-- is there a way we can get the date to show up like "March 2, 2015" or something? -->
+    {{=row.event_date}}<br />
+    {{=row.category}} <br />
+    <!-- body will be displayed in the post itself
+    {{=row.body}} <br /> -->
+        </span>
+    <span style="padding: 0px 0px 0px 75px">
+        <img src={{=URL('static','images/dontgoalonesmallpic.png')}} style="height:115px; border: 2px solid">
+    </span>
+</div>
 {{pass}}
 
 {{if page:}}
