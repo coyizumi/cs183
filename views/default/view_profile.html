@@ -1,0 +1,16 @@
+{{left_sidebar_disabled=True,right_sidebar_disabled=True,('message' in globals())}}
+{{extend 'layout.html'}}
+
+<!-- Skeleton for view profile. Add stuff to make it pretty =] -->
+<!-- user.us_state gives the users state
+     user.city gives the users city -->
+<!-- Remove the =user and  bits, they're just for testing -->
+{{if user:}}
+
+{{=user}}
+
+{{else:}}
+
+I like my shoes
+
+{{pass}}
