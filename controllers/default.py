@@ -10,17 +10,12 @@
 #########################################################################
 
 def index():
-    """
-    example action using the internationalization operator T and flash
-    rendered by views/default/index.html or views/generic.html
-
-    if you need a simple wiki simply replace the two lines below with:
-    return auth.wiki()
-    """
-    user = None
-    if auth.user is not None:
-        user = auth.user
-    return dict(user=user)
+    if len(request.args): page=int(request.args[0])
+    else: page=0
+    items_per_page=20
+    limitby=(page*items_per_page,(page+1)*items_per_page+1)
+    rows=db().select(db.posting.ALL,limitby=limitby)
+    return dict(rows=rows,page=page,items_per_page=items_per_page)
 
 def profile():
     edit = request.vars.edit == 'true'

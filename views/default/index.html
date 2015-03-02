@@ -1,5 +1,21 @@
 {{left_sidebar_disabled=True,right_sidebar_disabled=True,('message' in globals())}}
 {{extend 'layout.html'}}
-<span>
-    {{=A('View Profile', _class='btn', _href=URL('default', 'profile', vars=dict(edit='false')))}}
-</span>
+
+{{for i,row in enumerate(rows):}}
+{{if i==items_per_page: break}}
+{{=row.user_id.first_name}}<br />
+{{=row.us_state}}<br />
+{{=row.city}}<br />
+{{=row.event_date}}<br />
+{{=row.category}} <br />
+{{=row.body}} <br />
+<hr />
+{{pass}}
+
+{{if page:}}
+<a href="{{=URL(args=[page-1])}}">previous</a>
+{{pass}}
+
+{{if len(rows)>items_per_page:}}
+<a href="{{=URL(args=[page+1])}}">next</a>
+{{pass}}
