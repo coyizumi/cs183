@@ -89,7 +89,7 @@ def mail_test():
 def list_items():
     if len(request.args): page=int(request.args[0])
     else: page=0
-    items_per_page=3
+    items_per_page=15
     # Used for pagination
     limitby=(page*items_per_page,(page+1)*items_per_page+1)
 

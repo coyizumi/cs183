@@ -1,7 +1,6 @@
 {{left_sidebar_disabled=True,right_sidebar_disabled=True,('message' in globals())}}
 
 {{extend 'layout.html'}}
-
 {{from time import strftime}}
 {{for i,row in enumerate(rows):}}
 {{if i==items_per_page: break}}
