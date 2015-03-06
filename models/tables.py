@@ -25,7 +25,7 @@ db.define_table('posting',
 db.define_table('comment',
                 Field('user_id', db.auth_user),
                 Field('post', 'reference posting'),
-                Field('date_posted', datetime)
+                Field('date_posted', datetime),
                 Field('body', 'text'),
                 )
 
