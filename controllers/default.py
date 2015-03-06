@@ -135,12 +135,6 @@ def search():
 
     return dict(form=form)
 
-def view_post():
-    post_id = request.args[0] or None
-    post = db.posting[post_id]
-    comments = db(db.comments.post == post).select (orderby=~db.revision.date_posted)
-    return dict (post=post, comments=comments)
-
 
 def user():
     """
