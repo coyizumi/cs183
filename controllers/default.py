@@ -47,7 +47,8 @@ def view_post():
     post = db.posting[post_id]
     user_id = post.user_id
     user = db.auth_user[user_id]
-    return dict (post=post, user=user)
+    comments = db(db.comments.post == post).select (orderby=~db.revision.date_posted)
+    return dict (post=post, user=user, comments=comments)
 
 def add():
     if not auth.user:
