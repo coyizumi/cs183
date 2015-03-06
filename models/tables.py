@@ -22,10 +22,15 @@ db.define_table('posting',
                 Field('body', 'text'), # Body of posting
                 )
 
+db.define_table('comment',
+                Field('user_id', db.auth_user),
+                Field('post', 'reference posting'),
+                Field('date_posted', datetime)
+                Field('body', 'text'),
+                )
+
 db.posting.id.readable = False
 db.posting.body.label = 'Body'
-# We may want to move this to default.py so we can initialize the time when the post is made
-# rather than when the form is created
 db.posting.user_id.default = auth.user_id
 db.posting.user_id.writable = db.posting.user_id.readable = False
 db.posting.category.requires = IS_IN_SET(CATEGORY)
