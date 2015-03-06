@@ -61,6 +61,7 @@ STATES = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
 auth.settings.extra_fields['auth_user'] = [
     Field('city', requires=IS_NOT_EMPTY()),
     Field('us_state', requires=IS_IN_SET(STATES, zero=None), default=STATES[0]),
+    Field('profile_picture', 'upload'),
     ]
 
 ## create all tables needed by auth if not custom tables

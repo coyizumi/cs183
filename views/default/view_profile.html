@@ -6,11 +6,69 @@
      user.city gives the users city -->
 <!-- Remove the =user and  bits, they're just for testing -->
 {{if user:}}
+<div class="user_profile span9">
+ 
+<div class="user_profile_info span4">
+<h1>
+    <!-- replace with user name -->
+    {{=user.first_name}} {{=user.last_name}}
+</h1>
+    <h4>
+        {{=user.city}}, {{=user.us_state}}
+        <br> <br>
+        Maybe we could have like little tidbits of information about people here. They could write descriptions of maybe 50 words to describe themselves to fill in this empty space.
+    </h4>
+    
+    
+</div>
+<div class="span1">
+    </div>
 
-{{=user}}
+    <div class="span4 user_profile_picture">
+
+    <!-- PROFILE PICTURE -->
+    {{if user.profile_picture is not None:}}
+        <img src="{{=URL('download', args=user.profile_picture)}}" width=200px>
+    {{else:}}
+        <img src ="{{=URL('static','images/dontgoalonesmallpic.png')}}" width=200px>
+    {{pass}}
+        
+        </div>
+</div>
+<div class="span9">
+<div class="span2 empty_space">
+    </div>
+<div class="span5 user_profile_ratings">
+        <div class="user_profile_ratings_singleface span1">
+            <img src={{=URL('static', 'images/HappyFace.png')}} width=50px;>
+            <div class="user_profile_ratings_number">
+                <!-- will be replaced by number of ratings they have received in that category -->
+                0
+                </div>
+        </div>
+        
+        <div class="user_profile_ratings_singleface span1">
+            <img src={{=URL('static', 'images/NeutralFace.png')}} width=50px;>
+            <div class="user_profile_ratings_number">
+                <!-- will be replaced by number of ratings they have received in that category -->
+                0
+                </div>
+        </div>
+        
+        <div class="user_profile_ratings_singleface span1">
+            <img src={{=URL('static', 'images/SadFace.png')}} width=50px;>
+            <div class="user_profile_ratings_number">
+                <!-- will be replaced by number of ratings they have received in that category -->
+                0
+                </div>
+        </div>
+        </div>
+<div class="span2 empty_space">
+    </div>
+    </div>
 
 {{else:}}
 
-I like my shoes
+User not found
 
 {{pass}}

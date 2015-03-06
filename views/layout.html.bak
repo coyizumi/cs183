@@ -74,11 +74,14 @@
             font-size: 20px;
         }
         .linkagediv {
-            border-width: 1px 0px 0px 0px;
-            border-style: solid;
-            border-color: black;
+            
             padding: 5px;
             margin: 5px;
+        }
+        
+        .user_profile_ratings_number{
+            font-weight: bold;
+            padding: 5px 20px;
         }
     </style>
 </head>
