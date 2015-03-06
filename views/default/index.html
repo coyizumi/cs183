@@ -4,6 +4,7 @@
 {{for i,row in enumerate(rows):}}
 {{if i==items_per_page: break}}
 <!-- this entire div will become the link to the posting -->
+<a class="index_link_to_post" href={{=URL('view_post', args=row.id)}}>
 <div class="span3 listing" style="float: left; border: 2px solid black; padding: 25px; margin: 5px;">
     <span style="margin: 0px auto; float:left;">
     <!-- was this going to be just a user id instead of a name? -->
@@ -20,6 +21,7 @@
         <img src={{=URL('static','images/dontgoalonesmallpic.png')}} style="height:115px; border: 2px solid;">
     </span>
 </div>
+    </a>
 {{pass}}
 
 <div class="span9 linkagediv">

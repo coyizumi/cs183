@@ -74,11 +74,41 @@
             font-size: 20px;
         }
         .linkagediv {
-            border-width: 1px 0px 0px 0px;
-            border-style: solid;
-            border-color: black;
+            
             padding: 5px;
             margin: 5px;
+        }
+        
+        .user_profile_ratings_number{
+            font-weight: bold;
+            padding: 5px 20px;
+        }
+        
+        .index_link_to_post:link {
+            color: black;
+        }
+        
+        .index_link_to_post:visited {
+            color: grey;
+        }
+        
+        .index_link_to_post:hover {
+            color: #4e4eac;
+        }
+        
+        .index_link_to_post:active {
+            color: #4e4eac;
+            text-decoration: underline;
+        }
+        
+        .posting_user_picture {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .posting_user_name {
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>

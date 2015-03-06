@@ -12,7 +12,7 @@
 def index():
     if len(request.args): page=int(request.args[0])
     else: page=0
-    items_per_page=18
+    items_per_page=3
     limitby=(page*items_per_page,(page+1)*items_per_page+1)
     rows=db().select(db.posting.ALL,limitby=limitby)
     return dict(rows=rows,page=page,items_per_page=items_per_page)
@@ -42,7 +42,12 @@ def view_profile():
     user = db.auth_user[user_id]
     return dict (user=user)
 
-
+def view_post():
+    post_id = request.args(0) or None
+    post = db.posting[post_id]
+    user_id = post.id
+    user = db.auth_user[user_id]
+    return dict (post=post, user=user)
 
 def add():
     if not auth.user:
@@ -89,7 +94,7 @@ def mail_test():
 def list_items():
     if len(request.args): page=int(request.args[0])
     else: page=0
-    items_per_page=3
+    items_per_page=15
     # Used for pagination
     limitby=(page*items_per_page,(page+1)*items_per_page+1)
 
