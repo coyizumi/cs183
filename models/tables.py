@@ -19,13 +19,14 @@ db.define_table('posting',
                 Field('us_state'), # State of event
                 Field('category'), # Category of event
                 Field('event_date', 'date'),
+                Field('profile_picture', 'upload'),
                 Field('body', 'text'), # Body of posting
                 )
 
-db.define_table('comment',
+db.define_table('comments',
                 Field('user_id', db.auth_user),
                 Field('post', 'reference posting'),
-                Field('date_posted', datetime),
+                Field('date_posted', 'datetime'),
                 Field('body', 'text'),
                 )
 
@@ -42,5 +43,3 @@ db.posting.us_state.default='California'
 db.posting.city.required = True
 db.posting.body.required = True
 db.posting.event_date.required = True
-
-
