@@ -4,8 +4,8 @@
 {{for i,row in enumerate(rows):}}
 {{if i==items_per_page: break}}
 <!-- this entire div will become the link to the posting -->
-<a href={{=URL('view_post', args=row.id)}}>
-<div class="span3 listing" style="float: left; border: 2px solid black; padding: 25px; margin: 5px;">
+<a class="index_link_to_post" href={{=URL('view_post', args=row.id)}}>
+<div class="span3 listing" style="float: left; border: 2px solid black; padding: 25px; margin: 5px; height:115px;">
     <span style="margin: 0px auto; float:left;">
     <!-- was this going to be just a user id instead of a name? -->
     {{=row.user_id.first_name}}<br />
@@ -17,8 +17,12 @@
     <!-- body will be displayed in the post itself
     {{=row.body}} <br /> -->
         </span>
-    <span style="float: right;">
-        <img src={{=URL('static','images/dontgoalonesmallpic.png')}} style="height:115px; border: 2px solid;">
+    <span style="float: right; border: 1px solid black;">
+        {{if row.user_id.profile_picture:}}
+        <img src="{{=URL('download', args=row.user_id.profile_picture)}}" style="height:115px; width: 115px; filter: grayscale(50%);">
+        {{else:}}
+        <img src={{=URL('static','images/dontgoalonesmallpic.png')}} style="height:115px;">
+        {{pass}}
     </span>
 </div>
     </a>

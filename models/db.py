@@ -62,7 +62,11 @@ STATES = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
 auth.settings.extra_fields['auth_user'] = [
     Field('city', requires=IS_NOT_EMPTY()),
     Field('us_state', requires=IS_IN_SET(STATES, zero=None), default=STATES[0]),
+<<<<<<< Updated upstream
     Field('profile_picture', 'upload', requires=IS_EMPTY_OR(IS_IMAGE (extensions=('png', 'jpeg')))),
+=======
+    Field('profile_picture', 'upload', requires=[IS_IMAGE(), IS_LENGTH(maxsize=2048, error_message='Image must be less than 2mb')]),
+>>>>>>> Stashed changes
     ]
 
 ## create all tables needed by auth if not custom tables

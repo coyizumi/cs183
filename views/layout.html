@@ -133,8 +133,9 @@ bar ================================================== -->
               Don't Go Alone
           </span>
           <span style="line-height: 40px;">
-              {{=A("Home", _style="font-size: 16px; color: white; margin: 0px 20px 0px 20px;", _href=URL('default', 'index'))}}
-              {{=A("Search", _style="font-size: 16px; color: white; margin 20px;", _href=URL('default', 'search'))}}
+              {{=A("Home", _style="font-size: 16px; color: white; margin: 0px 20px 0px 0px;", _href=URL('default', 'index'))}}
+              {{=A("Search", _style="font-size: 16px; color: white; margin: 0px 20px 0px 0px;", _href=URL('default', 'search'))}}
+              {{=A("Add Posting", _style="font-size: 16px; color: white; margin: 0px 20px 0px 0px;", _href=URL('default', 'add'))}}
           </span>
         <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
         <div class="{{='nav-collapse' if is_mobile else 'nav'}}">
