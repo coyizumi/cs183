@@ -1,11 +1,15 @@
 {{extend 'layout.html'}}
 
 {{if post:}}
-<div class="posting_div span9">
-    <div class="posting_info span5">
+<div class="posting_div span9 big_listing">
+    
+        <div>
     <h2>
         {{=post.title}}
 </h2>
+            
+           </div>
+            <div class="posting_info span5">
 <h4>
     {{=post.city}}, {{=post.us_state}}
     <br>
@@ -16,8 +20,8 @@
     {{=post.body}}
 </h4>
         </div>
-    <div class="posting_user_info span3">
-        <div class="posting_user_picture span2">
+    <span class="posting_user_info span3">
+        <div class="posting_user_picture span2" style="width: 200px;">
         {{if user.profile_picture is not None:}}
             <img src="{{=URL('download', args=user.profile_picture)}}" width=200px>
         {{else:}}
@@ -29,7 +33,7 @@
             {{=user.first_name}} {{=user.last_name}}
         </h4>
             </div>
-    </div>
+    </span>
 </div>
     
 {{else:}}
