@@ -46,7 +46,7 @@ def view_post():
     post_id = request.args(0) or None
     post = db.posting[post_id]
     user_id = post.user_id
-    comments = db(db.comments.post == post).select (orderby=~db.revision.date_posted)
+    comments = db(db.comments.post == post).select (orderby=~db.comments.date_posted)
     return dict (post=post, user=user_id, comments=comments)
 
 def add():

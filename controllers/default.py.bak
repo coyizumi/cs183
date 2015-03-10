@@ -46,8 +46,8 @@ def view_post():
     post_id = request.args(0) or None
     post = db.posting[post_id]
     user_id = post.user_id
-    user = db.auth_user[user_id]
-    return dict (post=post, user=user)
+    comments = db(db.comments.post == post).select (orderby=~db.revision.date_posted)
+    return dict (post=post, user=user_id, comments=comments)
 
 def add():
     if not auth.user:
@@ -65,7 +65,7 @@ def add():
     if content.process().accepted:
         db.posting.insert (
             user_id=auth.user,
-            title=vars.title,
+            title=content.vars.title,
             us_state=content.vars.us_state,
             city=content.vars.city,
             event_date=content.vars.event_date,

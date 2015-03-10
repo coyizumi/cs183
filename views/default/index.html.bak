@@ -7,6 +7,9 @@
 <a class="index_link_to_post" href={{=URL('view_post', args=row.id)}}>
 <div class="span3 listing" style="float: left; border: 2px solid black; padding: 25px; margin: 5px; height:115px;">
     <span style="margin: 0px auto; float:left;">
+        <div>
+        <b>{{=row.title}}</b><br />
+            </div>
     <!-- was this going to be just a user id instead of a name? -->
     {{=row.user_id.first_name}}<br />
         {{=row.city}}<br />
@@ -17,13 +20,13 @@
     <!-- body will be displayed in the post itself
     {{=row.body}} <br /> -->
         </span>
-    <span style="float: right; border: 1px solid black;">
+    <div style="float: right; border: 1px solid black;">
         {{if row.user_id.profile_picture:}}
-        <img src="{{=URL('download', args=row.user_id.profile_picture)}}" style="height:115px; width: 115px; filter: grayscale(50%);">
+        <img src="{{=URL('download', args=row.user_id.profile_picture)}}" style="height:100px; width: 100px;">
         {{else:}}
-        <img src={{=URL('static','images/dontgoalonesmallpic.png')}} style="height:115px;">
+        <img src={{=URL('static','images/dontgoalonesmallpic.png')}} style="height:100px;">
         {{pass}}
-    </span>
+    </div>
 </div>
     </a>
 {{pass}}

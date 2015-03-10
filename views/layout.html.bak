@@ -133,7 +133,7 @@ bar ================================================== -->
               Don't Go Alone
           </span>
           <span style="line-height: 40px;">
-              {{=A("Home", _style="font-size: 16px; color: white; margin: 0px 20px 0px 20px;", _href=URL('default', 'index'))}}
+              {{=A("Home", _style="font-size: 16px; color: white; margin: 0px 20px 0px 0px;", _href=URL('default', 'index'))}}
               {{=A("Search", _style="font-size: 16px; color: white; margin: 0px 20px 0px 0px;", _href=URL('default', 'search'))}}
               {{=A("Add Posting", _style="font-size: 16px; color: white; margin: 0px 20px 0px 0px;", _href=URL('default', 'add'))}}
           </span>
