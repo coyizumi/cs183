@@ -31,6 +31,11 @@ db.define_table('comments',
                 Field('body', 'text'),
                 )
 
+db.define_table('invites',
+                Field('user_id', db.auth_user),
+                Field('post', 'reference posting'),
+                )
+
 db.posting.id.readable = False
 db.posting.body.label = 'Body'
 db.posting.user_id.default = auth.user_id

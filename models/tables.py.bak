@@ -44,7 +44,4 @@ db.posting.us_state.default='California'
 db.posting.city.required = True
 db.posting.body.required = True
 db.posting.event_date.required = True
-<<<<<<< Updated upstream
-=======
 db.posting.title.required = True
->>>>>>> Stashed changes
