@@ -2,23 +2,25 @@
 {{from time import strftime}}
 
 {{if post:}}
-<div class="posting_div span9">
-    <div class="posting_info span5">
+<div class="posting_div span9 big_listing">
+    
+        <div>
     <h2>
-        We should have titles for events to specify what it is, eg. San Jose Sharks vs. New Jersey Devils or 50 Shades of Grey
+        {{=post.title}}
 </h2>
+            
+           </div>
+            <div class="posting_info span5">
 <h4>
     {{=post.city}}, {{=post.us_state}}
     <br>
-    {{=row.event_date.strftime ("%B %d, %Y")}}, Should we have a time on the posting table also? eg. 7:30 pm
-    <br>
-    also, we need to beautify the date, Coy can you help please? :3
+    {{=post.event_date.strftime ("%B %d, %Y")}}
     <br><br>
     {{=post.body}}
 </h4>
         </div>
-    <div class="posting_user_info span3">
-        <div class="posting_user_picture span2">
+    <span class="posting_user_info span3" style="float: right;">
+        <div class="posting_user_picture span2" style="width: 200px;">
         {{if user.profile_picture is not None:}}
             <img src="{{=URL('download', args=user.profile_picture)}}" width=200px>
         {{else:}}
@@ -30,6 +32,14 @@
             {{=user.first_name}} {{=user.last_name}}
         </h4>
             </div>
+    </span>
+</div>
+
+
+
+<div class="row" >
+    <div class="invite_button span3 offset4" style="padding: 25px 0px 0px 0px;">
+        {{=A('Attend', _class='btn', _style="width: 200px; height: 50px; line-height: 200%; background: #4e4eac; font-weight: bold; color: white; font-size: 24px;")}}
     </div>
 </div>
     

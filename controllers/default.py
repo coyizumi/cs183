@@ -46,7 +46,7 @@ def view_post():
     post_id = request.args(0) or None
     post = db.posting[post_id]
     user_id = post.user_id
-    comments = db(db.comments.post == post).select (orderby=~db.revision.date_posted)
+    comments = db(db.comments.post == post).select (orderby=~db.comments.date_posted)
     return dict (post=post, user=user_id, comments=comments)
 
 def add():
@@ -55,15 +55,17 @@ def add():
         # Might be better to require login. Will look that up later
         return dict(content="")
     content = SQLFORM.factory (
-        Field('us_state', label="State", default=auth.user.us_state, requires=IS_IN_SET(STATES)),
+        Field('title', label="Title", requires=IS_LENGTH(30)),
+        Field('us_state', label="State", default=auth.user.us_state, requires=IS_IN_SET(STATES, zero=None)),
         Field('city', label="City", default=auth.user.city, requires=IS_NOT_EMPTY()),
         Field('event_date', 'date', label="Event Date", requires=IS_DATE(format=T('%Y-%m-%d'))),
-        Field('event_type', label="Event Type", requires=IS_IN_SET(CATEGORY)),
-        Field('body', 'text', label='Event Info', requires=IS_NOT_EMPTY()),
+        Field('event_type', label="Event Type", requires=IS_IN_SET(CATEGORY, zero=None)),
+        Field('body', 'text', label='Event Info', requires=[IS_NOT_EMPTY(), IS_LENGTH(300)]),
         )
     if content.process().accepted:
         db.posting.insert (
             user_id=auth.user,
+            title=content.vars.title,
             us_state=content.vars.us_state,
             city=content.vars.city,
             event_date=content.vars.event_date,
