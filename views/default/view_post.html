@@ -1,4 +1,5 @@
 {{extend 'layout.html'}}
+{{from time import strftime}}
 
 {{if post:}}
 <div class="posting_div span9">
@@ -9,7 +10,7 @@
 <h4>
     {{=post.city}}, {{=post.us_state}}
     <br>
-    {{=post.event_date}}, Should we have a time on the posting table also? eg. 7:30 pm
+    {{=row.event_date.strftime ("%B %d, %Y")}}, Should we have a time on the posting table also? eg. 7:30 pm
     <br>
     also, we need to beautify the date, Coy can you help please? :3
     <br><br>
@@ -34,4 +35,8 @@
     
 {{else:}}
 
+{{pass}}
+
+{{for c in comments:}}
+{{=c.body}}
 {{pass}}
