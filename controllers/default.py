@@ -73,6 +73,9 @@ def add():
         redirect(URL('default', 'index',))
     return dict(content=content)
 
+def invite():
+    post_id = request.args(0) or None
+    
 
 def mail_test():
     content = SQLFORM.factory (

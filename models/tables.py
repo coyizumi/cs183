@@ -36,6 +36,13 @@ db.define_table('invites',
                 Field('post', 'reference posting'),
                 )
 
+db.define_table('reviews',
+                Field('reviewer_id', db.auth_user),
+                Field('reviewee_id', db.auth_user),
+                Field('rating'),
+                Field('body', 'text'),
+                )
+
 db.posting.id.readable = False
 db.posting.body.label = 'Body'
 db.posting.user_id.default = auth.user_id
