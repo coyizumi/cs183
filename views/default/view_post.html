@@ -19,6 +19,7 @@
     {{=post.body}}
 </h4>
         </div>
+    <a class="index_link_to_post" href={{=URL('view_profile', args=user.id)}}>
     <span class="posting_user_info span3" style="float: right;">
         <div class="posting_user_picture span2" style="width: 200px;">
         {{if user.profile_picture is not None:}}
