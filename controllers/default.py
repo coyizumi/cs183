@@ -10,12 +10,10 @@
 #########################################################################
 
 def index():
-    if len(request.args): page=int(request.args[0])
-    else: page=0
-    items_per_page=3
-    limitby=(page*items_per_page,(page+1)*items_per_page+1)
-    rows=db().select(db.posting.ALL,limitby=limitby)
-    return dict(rows=rows,page=page,items_per_page=items_per_page)
+    if auth.user:
+        redirect(URL('default', 'list_items', vars=dict(us_state=auth.user.us_state, city=auth.user.city)))
+    else:
+        redirect(URL('default', 'list_items', vars=dict(us_state='California')))
 
 def profile():
     edit = request.vars.edit == 'true'
