@@ -10,4 +10,6 @@ web2py signature at bottom of page
 delete a post
 sort by date of activity 
 default search query to your state
-update view_items to show profile picture
+
+
+dontgoalone.pythonanywhere.com/cs183/default/index
