@@ -11,5 +11,4 @@ delete a post
 sort by date of activity 
 default search query to your state
 
-
 dontgoalone.pythonanywhere.com/cs183/default/index
