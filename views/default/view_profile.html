@@ -16,8 +16,10 @@
     <h4>
         {{=user.city}}, {{=user.us_state}}
         <br> <br>
-        Maybe we could have like little tidbits of information about people here. They could write descriptions of maybe 50 words to describe themselves to fill in this empty space.
-    </h4>
+        {{if user.description is not None:}}
+        {{=user.description}}
+        {{pass}}
+        </h4>
     
     
 </div>
