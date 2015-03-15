@@ -11,5 +11,7 @@ delete a post
 sort by date of activity 
 default search query to your state
 Customized sign up page
+joke people
+update review numbers
 
 dontgoalone.pythonanywhere.com/cs183/default/index
