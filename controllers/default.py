@@ -9,6 +9,8 @@
 ## - api is an example of Hypermedia API support and access control
 #########################################################################
 
+from datetime import datetime
+
 def index():
     if auth.user:
         redirect(URL('default', 'list_items', vars=dict(us_state=auth.user.us_state, city=auth.user.city)))
@@ -73,13 +75,56 @@ def add():
         redirect(URL('default', 'index',))
     return dict(content=content)
 
+def add_comment():
+    post_id = request.args(0) or None
+    post = db.posting[post_id]
+    if post and auth.user:
+        form = SQLFORM.factory (
+            Field ('body', 'text', default="enter a comment"),
+            )
+        if form.process().accepted:
+            db.comments.insert (
+                user_id=auth.user,
+                post=post,
+                date_posted=datetime.utcnow(),
+                body=form.vars.body,
+                )
+            redirect (URL('default', 'view_post', args=[post_id]))
+        return dict (form=form)
+    redirect (URL('default', 'view_post', args=[post_id]))
+
+def add_review():
+    user_id = request.args(0) or None
+    user = db.auth_user[user_id]
+    if user and auth.user:
+        form = SQLFORM.factory (
+            #Field('reviewer_id', db.auth_user),
+            #Field('reviewee_id', db.auth_user),
+            Field('rating'),
+            Field('body', 'text'),
+            )
+        if form.process().accepted:
+            db.reviews.insert (
+                reviewer_id=auth.user,
+                reviewee_id=user,
+                rating=form.vars.rating,
+                body=form.vars.body,
+                )
+            redirect (URL('default', 'view_profile', args=[user_id]))
+        return dict(form=form)
+    redirect (URL('default', 'view_profile', args=[user_id]))
+
+
 def invite():
     post_id = request.args(0) or None
     post = db.posting[post_id]
-    db.invites.update_or_insert (
-        user_id=auth.user,
-        post=post,
-    )
+    if auth.user:
+        db.invites.update_or_insert (
+            user_id=auth.user,
+            post=post,
+        )
+    else:
+        session.flash = T('Must be logged in to attend')
     redirect (URL('default', 'view_post', args=[post_id]))
 
 def mail_test():
