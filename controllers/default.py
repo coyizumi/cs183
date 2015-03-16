@@ -112,7 +112,8 @@ def add_review():
             Field('body', 'text'),
             )
         if form.process().accepted:
-            db.reviews.insert (
+            db.reviews.update_or_insert (
+                dict (reviewer_id=auth.user, reviewee_id=user),
                 reviewer_id=auth.user,
                 reviewee_id=user,
                 rating=form.vars.rating,
