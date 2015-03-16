@@ -74,6 +74,22 @@
         {{=A('Review', _class='btn',  _href=URL('default', 'add_review', args=[user.id]), _style="width: 200px; height: 50px; line-height: 200%; background: #4e4eac; font-weight: bold; color: white; font-size: 24px;")}}
     </div>
 </div>
+
+<div class="row">
+{{for c in reviews:}}
+<div class="comment span9" style="padding: 25px 0px 0px 0px; text-align: center; font-size: 16px;">
+    {{if c.rating == "Great":}}
+        <img src={{=URL('static', 'images/HappyFace.png')}} width=50px;>
+    {{elif c.rating == "Meh":}}
+        <img src={{=URL('static', 'images/NeutralFace.png')}} width=50px;>
+    {{else:}}
+        <img src={{=URL('static', 'images/SadFace.png')}} width=50px;>
+    {{pass}}
+    <b>{{=c.reviewer_id.first_name}}:</b>
+    {{=c.body}}
+</div>
+{{pass}}
+</div>
 {{else:}}
 
 User not found

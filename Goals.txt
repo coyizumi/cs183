@@ -1,13 +1,11 @@
-comments on profiles
-comments on posts
-nav bar, don't go alone goes to home
-nav bar, home button changed to "my area"
-web2py signature at bottom of page
+Meh - comments on profiles
+Meh - comments on posts
+Maybe? - nav bar, don't go alone goes to home
+Maybe? - nav bar, home button changed to "my area"
 delete a post
-sort by date of activity 
+sort all posts/view_items by date of activity 
 default search query to your state
 Customized sign up page
 joke people
-update review numbers
 
 dontgoalone.pythonanywhere.com/cs183/default/index

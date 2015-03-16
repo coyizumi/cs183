@@ -21,7 +21,7 @@ def view_profile():
     user_id = request.args(0) or None
     user = db.auth_user[user_id]
     if user:
-        reviews = db(db.reviews.reviewee_id == user).select ()
+        reviews = db(db.reviews.reviewee_id == user).select()
         # Tally up the totals of each rating
         ratings = dict ()
         for r in RATINGS:
