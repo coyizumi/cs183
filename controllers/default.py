@@ -57,11 +57,8 @@ def view_post():
     invites = db(db.invites.post == post).select()
     return dict (post=post, user=user_id, comments=comments, invites=invites)
 
+@auth.requires_login()
 def add():
-    if not auth.user:
-        # TODO add some flash here saying "Can only post when logged in"
-        # Might be better to require login. Will look that up later
-        return dict(content="")
     content = SQLFORM.factory (
         Field('title', label="Title", requires=IS_LENGTH(30)),
         Field('us_state', label="State", default=auth.user.us_state, requires=IS_IN_SET(STATES, zero=None)),
@@ -87,6 +84,7 @@ def add():
         redirect(URL('default', 'index',))
     return dict(content=content)
 
+@auth.requires_login()
 def add_comment():
     post_id = request.args(0) or None
     post = db.posting[post_id]
@@ -105,6 +103,7 @@ def add_comment():
         return dict (form=form)
     redirect (URL('default', 'view_post', args=[post_id]))
 
+@auth.requires_login()
 def add_review():
     user_id = request.args(0) or None
     user = db.auth_user[user_id]
@@ -127,7 +126,7 @@ def add_review():
         return dict(form=form)
     redirect (URL('default', 'view_profile', args=[user_id]))
 
-
+@auth.requires_login()
 def invite():
     post_id = request.args(0) or None
     post = db.posting[post_id]
