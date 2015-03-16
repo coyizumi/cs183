@@ -100,7 +100,7 @@ def add_comment():
                 body=form.vars.body,
                 )
             redirect (URL('default', 'view_post', args=[post_id]))
-        return dict (content=form)
+        return dict (content=form, post=post)
     session.flash = T("Invalid post")
     return dict (content="Invalid post")
 
@@ -124,7 +124,7 @@ def add_review():
                 body=form.vars.body,
                 )
             redirect (URL('default', 'view_profile', args=[user_id]))
-        return dict(content=form)
+        return dict(content=form, user=user)
     session.flash = T("Invalid user")
     return dict (content="Invalid user")
 
