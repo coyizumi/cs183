@@ -22,10 +22,10 @@ def view_profile():
     user = db.auth_user[user_id]
     if user:
         reviews = db(db.reviews.reviewee_id == user).select ()
+        # Tally up the totals of each rating
         ratings = dict ()
-        ratings[RATINGS[0]]=0
-        ratings[RATINGS[1]]=0
-        ratings[RATINGS[2]]=0
+        for r in RATINGS:
+            ratings[r]=0
         for r in reviews:
             ratings[r.rating] += 1
         return dict (user=user, reviews=reviews, ratings=ratings)
