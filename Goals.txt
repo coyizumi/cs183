@@ -1,9 +1,5 @@
 comments on profiles
 comments on posts
-style the profile page
-see who is attending?
-attend button
-homepage just ones in your area
 nav bar, don't go alone goes to home
 nav bar, home button changed to "my area"
 web2py signature at bottom of page
