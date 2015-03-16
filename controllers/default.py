@@ -100,14 +100,15 @@ def add_comment():
                 body=form.vars.body,
                 )
             redirect (URL('default', 'view_post', args=[post_id]))
-        return dict (form=form)
-    redirect (URL('default', 'view_post', args=[post_id]))
+        return dict (content=form)
+    session.flash = T("Invalid post")
+    return dict (content="Invalid post")
 
 @auth.requires_login()
 def add_review():
     user_id = request.args(0) or None
     user = db.auth_user[user_id]
-    if user and auth.user:
+    if user:
         form = SQLFORM.factory (
             #Field('reviewer_id', db.auth_user),
             #Field('reviewee_id', db.auth_user),
@@ -123,20 +124,18 @@ def add_review():
                 body=form.vars.body,
                 )
             redirect (URL('default', 'view_profile', args=[user_id]))
-        return dict(form=form)
-    redirect (URL('default', 'view_profile', args=[user_id]))
+        return dict(content=form)
+    session.flash = T("Invalid user")
+    return dict (content="Invalid user")
 
 @auth.requires_login()
 def invite():
     post_id = request.args(0) or None
     post = db.posting[post_id]
-    if auth.user:
-        db.invites.update_or_insert (
-            user_id=auth.user,
-            post=post,
-        )
-    else:
-        session.flash = T('Must be logged in to attend')
+    db.invites.update_or_insert (
+        user_id=auth.user,
+        post=post,
+    )
     redirect (URL('default', 'view_post', args=[post_id]))
 
 def mail_test():
