@@ -50,7 +50,7 @@
         <ul>
         {{for i in invites:}}
         <li style="margin: 10px auto;">
-            {{=i.user_id.first_name}}
+            <a class="profile_link" href={{=URL('default', 'view_profile', args=[i.user_id])}}>{{=i.user_id.first_name}}</a>
         </li>
         {{pass}}
     </ul>
@@ -61,7 +61,7 @@
 <div class="row">
 {{for c in comments:}}
 <div class="comment span9" style="padding: 25px 0px 0px 0px; text-align: center; font-size: 16px;">
-    <b>{{=c.user_id.first_name}}:</b>
+    <b><a class="profile_link" href={{=URL('default', 'view_profile', args=[c.user_id])}}>{{=c.user_id.first_name}}</a>:</b>
     {{=c.body}}
 </div>
 {{pass}}

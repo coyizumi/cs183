@@ -85,7 +85,7 @@
     {{else:}}
         <img src={{=URL('static', 'images/SadFace.png')}} width=50px;>
     {{pass}}
-    <b>{{=c.reviewer_id.first_name}}:</b>
+    <b><a class="profile_link" href={{=URL('default', 'view_profile', args=[c.reviewer_id])}}>{{=c.reviewer_id.first_name}}</a>:</b>
     {{=c.body}}
 </div>
 {{pass}}
