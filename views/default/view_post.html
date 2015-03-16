@@ -30,7 +30,7 @@
             </div>
         <div class="posting_user_name span2">
         <h4>
-            {{=user.first_name}} {{=user.last_name}}
+            {{=user.first_name}}
         </h4>
             </div>
     </span>
@@ -41,6 +41,18 @@
 <div class="row" >
     <div class="invite_button span3 offset4" style="padding: 25px 0px 0px 0px;">
         {{=A('Attend', _class='btn', _href=URL('default', 'invite', args=[post.id]), _style="width: 200px; height: 50px; line-height: 200%; background: #4e4eac; font-weight: bold; color: white; font-size: 24px;")}}
+    </div>
+    <div class="span2" style="margin: 10px;">
+        <div style="font-size: 24px;">
+        <b>Attending<br /></b>
+        <ul>
+        {{for i in invites:}}
+        <li>
+            {{=i.user_id.first_name}} <br>
+        </li>
+        {{pass}}
+    </ul>
+    </div>
     </div>
 </div>
     

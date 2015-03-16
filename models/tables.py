@@ -12,6 +12,8 @@ STATES = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 
 'Wisconsin', 'Wyoming']
 
+RATINGS = ['Great', 'Meh', 'Bad']
+
 # This is the main table, containing the posts.
 db.define_table('posting',
                 Field('user_id', db.auth_user), # User id of poster, we'll use this to get email/name/etc
@@ -57,3 +59,5 @@ db.posting.city.required = True
 db.posting.body.required = True
 db.posting.event_date.required = True
 db.posting.title.required = True
+
+db.reviews.rating.requires = IS_IN_SET(RATINGS, zero=None)
