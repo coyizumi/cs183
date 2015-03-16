@@ -44,7 +44,7 @@
             <img src={{=URL('static', 'images/HappyFace.png')}} width=50px;>
             <div class="user_profile_ratings_number">
                 <!-- will be replaced by number of ratings they have received in that category -->
-                0
+                {{=ratings[RATINGS[0]]}}
                 </div>
         </div>
         
@@ -52,7 +52,7 @@
             <img src={{=URL('static', 'images/NeutralFace.png')}} width=50px;>
             <div class="user_profile_ratings_number">
                 <!-- will be replaced by number of ratings they have received in that category -->
-                0
+                {{=ratings[RATINGS[1]]}}
                 </div>
         </div>
         
@@ -60,7 +60,7 @@
             <img src={{=URL('static', 'images/SadFace.png')}} width=50px;>
             <div class="user_profile_ratings_number">
                 <!-- will be replaced by number of ratings they have received in that category -->
-                0
+                {{=ratings[RATINGS[2]]}}
                 </div>
         </div>
         </div>
@@ -71,7 +71,7 @@
 
 <div class="row" >
     <div class="invite_button span3 offset4" style="padding: 25px 0px 0px 0px;">
-        {{=A('Review', _class='btn', _style="width: 200px; height: 50px; line-height: 200%; background: #4e4eac; font-weight: bold; color: white; font-size: 24px;")}}
+        {{=A('Review', _class='btn',  _href=URL('default', 'add_review', args=[user.id]), _style="width: 200px; height: 50px; line-height: 200%; background: #4e4eac; font-weight: bold; color: white; font-size: 24px;")}}
     </div>
 </div>
 {{else:}}

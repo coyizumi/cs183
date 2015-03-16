@@ -40,7 +40,14 @@ def profile():
 def view_profile():
     user_id = request.args(0) or None
     user = db.auth_user[user_id]
-    return dict (user=user)
+    reviews = db(db.reviews.reviewee_id == user).select ()
+    ratings = dict ()
+    ratings[RATINGS[0]]=0
+    ratings[RATINGS[1]]=0
+    ratings[RATINGS[2]]=0
+    for r in reviews:
+        ratings[r.rating] += 1
+    return dict (user=user, reviews=reviews, ratings=ratings)
 
 def view_post():
     post_id = request.args(0) or None
@@ -101,7 +108,7 @@ def add_review():
         form = SQLFORM.factory (
             #Field('reviewer_id', db.auth_user),
             #Field('reviewee_id', db.auth_user),
-            Field('rating'),
+            Field('rating', requires=IS_IN_SET(RATINGS, zero=None)),
             Field('body', 'text'),
             )
         if form.process().accepted:
