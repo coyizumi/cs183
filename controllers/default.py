@@ -71,7 +71,7 @@ def add():
         Field('body', 'text', label='Event Info', requires=[IS_NOT_EMPTY(), IS_LENGTH(300)]),
         )
     if content.process().accepted:
-        db.posting.insert (
+        post = db.posting.insert (
             user_id=auth.user,
             title=content.vars.title,
             us_state=content.vars.us_state,
@@ -80,6 +80,10 @@ def add():
             category=content.vars.event_type,
             body=content.vars.body,
             )
+        db.invites.update_or_insert (
+            user_id=auth.user,
+            post=post,
+        )
         redirect(URL('default', 'index',))
     return dict(content=content)
 
