@@ -17,48 +17,34 @@ def index():
     else:
         redirect(URL('default', 'list_items', vars=dict(us_state='California')))
 
-def profile():
-    edit = request.vars.edit == 'true'
-    content = "string cheese"
-    user = None
-    if auth.user is not None:
-        user = auth.user
-    if edit:
-        content = SQLFORM.factory(Field('firstname', label='First Name', default=user.first_name if user else ""),
-                                  Field('lastname', label='Last Name', default=user.last_name if user else ""),
-                                  Field('city', label='City', default=user.city if user else ""),
-                                  Field('state', requires=IS_IN_SET(STATES, zero=None), default="California"),
-                                  Field('Event Date', 'date', requires=IS_DATE(format=T('%Y-%m-%d'))),
-                                  )
-        
-        #content = SQLFORM.factory(db.userprofile)
-    else:
-        content = "Not currently editing"
-        
-    return dict(content=content)
-
 def view_profile():
     user_id = request.args(0) or None
     user = db.auth_user[user_id]
-    reviews = db(db.reviews.reviewee_id == user).select ()
-    ratings = dict ()
-    ratings[RATINGS[0]]=0
-    ratings[RATINGS[1]]=0
-    ratings[RATINGS[2]]=0
-    for r in reviews:
-        ratings[r.rating] += 1
-    return dict (user=user, reviews=reviews, ratings=ratings)
+    if user:
+        reviews = db(db.reviews.reviewee_id == user).select ()
+        ratings = dict ()
+        ratings[RATINGS[0]]=0
+        ratings[RATINGS[1]]=0
+        ratings[RATINGS[2]]=0
+        for r in reviews:
+            ratings[r.rating] += 1
+        return dict (user=user, reviews=reviews, ratings=ratings)
+    return dict (user=user)
 
 def view_post():
     post_id = request.args(0) or None
     post = db.posting[post_id]
-    user_id = post.user_id
-    comments = db(db.comments.post == post).select (orderby=~db.comments.date_posted)
-    invites = db(db.invites.post == post).select()
-    return dict (post=post, user=user_id, comments=comments, invites=invites)
+    if post:
+        user_id = post.user_id
+        comments = db(db.comments.post == post).select (orderby=~db.comments.date_posted)
+        invites = db(db.invites.post == post).select()
+        return dict (post=post, user=user_id, comments=comments, invites=invites)
+    session.flash = T("Invalid post")
+    return dict (post=post)
 
 @auth.requires_login()
 def add():
+    # Create form
     content = SQLFORM.factory (
         Field('title', label="Title", requires=IS_LENGTH(30)),
         Field('us_state', label="State", default=auth.user.us_state, requires=IS_IN_SET(STATES, zero=None)),
@@ -67,6 +53,7 @@ def add():
         Field('event_type', label="Event Type", requires=IS_IN_SET(CATEGORY, zero=None)),
         Field('body', 'text', label='Event Info', requires=[IS_NOT_EMPTY(), IS_LENGTH(300)]),
         )
+    # Create new posting from contents of form
     if content.process().accepted:
         post = db.posting.insert (
             user_id=auth.user,
@@ -77,22 +64,28 @@ def add():
             category=content.vars.event_type,
             body=content.vars.body,
             )
+        # Auto invite the poster
         db.invites.update_or_insert (
             user_id=auth.user,
             post=post,
-        )
+            )
         redirect(URL('default', 'index',))
+    # Return form
     return dict(content=content)
 
 @auth.requires_login()
 def add_comment():
     post_id = request.args(0) or None
     post = db.posting[post_id]
-    if post and auth.user:
+    # If post exists
+    if post:
+        # Create a form
         form = SQLFORM.factory (
             Field ('body', 'text', default="enter a comment"),
             )
+        # Process form and insert new comment
         if form.process().accepted:
+            # No need to replace any comments, users can comment multiple times
             db.comments.insert (
                 user_id=auth.user,
                 post=post,
@@ -100,7 +93,9 @@ def add_comment():
                 body=form.vars.body,
                 )
             redirect (URL('default', 'view_post', args=[post_id]))
+        # Return form
         return dict (content=form, post=post)
+    # If post doesn't exist, say so
     session.flash = T("Invalid post")
     return dict (content="Invalid post")
 
@@ -108,15 +103,18 @@ def add_comment():
 def add_review():
     user_id = request.args(0) or None
     user = db.auth_user[user_id]
+    # If user exists, allow a review to be made
     if user:
+        # Review needs only rating and body
         form = SQLFORM.factory (
-            #Field('reviewer_id', db.auth_user),
-            #Field('reviewee_id', db.auth_user),
             Field('rating', requires=IS_IN_SET(RATINGS, zero=None)),
             Field('body', 'text'),
             )
         if form.process().accepted:
             db.reviews.update_or_insert (
+                # This dict means that if a review with reviewer_id==auth.user and
+                # reviewee_id == user already exists, update it rather than inserting
+                # a new one
                 dict (reviewer_id=auth.user, reviewee_id=user),
                 reviewer_id=auth.user,
                 reviewee_id=user,
@@ -124,7 +122,9 @@ def add_review():
                 body=form.vars.body,
                 )
             redirect (URL('default', 'view_profile', args=[user_id]))
+        # Return the form factory
         return dict(content=form, user=user)
+    # If user does not exist, say so
     session.flash = T("Invalid user")
     return dict (content="Invalid user")
 
@@ -132,10 +132,11 @@ def add_review():
 def invite():
     post_id = request.args(0) or None
     post = db.posting[post_id]
-    db.invites.update_or_insert (
-        user_id=auth.user,
-        post=post,
-    )
+    if post:
+        db.invites.update_or_insert (
+            user_id=auth.user,
+            post=post,
+            )
     redirect (URL('default', 'view_post', args=[post_id]))
 
 def mail_test():
@@ -172,12 +173,14 @@ def list_items():
     if request.vars.category:
         query &= db.posting.category == request.vars.category
 
+    # limitby limits the posts returned to a specified range
     rows=db(query).select(limitby=limitby)
     return dict(rows=rows,page=page,items_per_page=items_per_page, list_vars=request.vars)
 
 # http://www.web2pyslices.com/slice/show/1552/search-form
 
 def search():
+    # Create search form
     form = SQLFORM.factory(
         Field ('us_state', required=True, requires=IS_IN_SET(STATES, zero=None), default='California'),
         Field ('city'),
@@ -186,6 +189,7 @@ def search():
         formstyle='divs',
         submit_button='Search',
         )
+    # When form is accepted, pass arguments to list_items
     if form.process().accepted:
         list_vars = dict(us_state=form.vars.us_state)
         if form.vars.city:
