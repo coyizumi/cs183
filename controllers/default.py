@@ -75,7 +75,12 @@ def add():
 
 def invite():
     post_id = request.args(0) or None
-    
+    post = db.posting[post_id]
+    db.invites.update_or_insert (
+        user_id=auth.user,
+        post=post,
+    )
+    redirect (URL('default', 'view_post', args=[post_id]))
 
 def mail_test():
     content = SQLFORM.factory (
