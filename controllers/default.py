@@ -91,7 +91,7 @@ def add_comment():
     if post:
         # Create a form
         form = SQLFORM.factory (
-            Field ('body', 'text', default="enter a comment",),
+            Field ('body', 'text'),
             )
         # Process form and insert new comment
         if form.process().accepted:
