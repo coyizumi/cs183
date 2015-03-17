@@ -10,6 +10,7 @@
 #########################################################################
 
 from datetime import datetime
+from datetime import date
 
 def index():
     if auth.user:
@@ -46,6 +47,10 @@ def delete_post():
     post_id = request.args(0) or None
     db(db.posting.id == post_id).delete()
     redirect(URL('default', 'list_items', vars=dict(us_state=auth.user.us_state, city=auth.user.city)))
+
+def prune():
+    db (db.posting.event_date < date.today()).delete()
+    redirect(URL('default', 'index'))
 
 @auth.requires_login()
 def add():
