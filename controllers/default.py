@@ -184,7 +184,7 @@ def list_items():
         query &= db.posting.category == request.vars.category
 
     # limitby limits the posts returned to a specified range
-    rows=db(query).select(limitby=limitby)
+    rows=db(query).select(limitby=limitby, orderby=db.posting.event_date)
     return dict(rows=rows,page=page,items_per_page=items_per_page, list_vars=request.vars)
 
 # http://www.web2pyslices.com/slice/show/1552/search-form
