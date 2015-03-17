@@ -42,6 +42,11 @@ def view_post():
     session.flash = T("Invalid post")
     return dict (post=post)
 
+def delete_post():
+    post_id = request.args(0) or None
+    db(db.posting.id == post_id).delete()
+    redirect(URL('default', 'list_items', vars=dict(us_state=auth.user.us_state, city=auth.user.city)))
+
 @auth.requires_login()
 def add():
     # Create form
@@ -81,7 +86,7 @@ def add_comment():
     if post:
         # Create a form
         form = SQLFORM.factory (
-            Field ('body', 'text', default="enter a comment"),
+            Field ('body', 'text', default="enter a comment",),
             )
         # Process form and insert new comment
         if form.process().accepted:
