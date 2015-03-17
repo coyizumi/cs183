@@ -43,10 +43,13 @@ def view_post():
     session.flash = T("Invalid post")
     return dict (post=post)
 
+@auth.requires_login()
 def delete_post():
     post_id = request.args(0) or None
-    db(db.posting.id == post_id).delete()
-    redirect(URL('default', 'list_items', vars=dict(us_state=auth.user.us_state, city=auth.user.city)))
+    post = db.posting[post_id]
+    if post and (post.user_id.id == auth.user_id):
+        db(db.posting.id == post_id).delete()
+    redirect(URL('default', 'index'))
 
 def prune():
     db (db.posting.event_date < date.today()).delete()
