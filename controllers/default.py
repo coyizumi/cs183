@@ -181,8 +181,10 @@ def list_items():
 
 def search():
     # Create search form
+    def_state = 'California'
+    if auth.user: def_state = auth.user.us_state
     form = SQLFORM.factory(
-        Field ('us_state', required=True, requires=IS_IN_SET(STATES, zero=None), default='California'),
+        Field ('us_state', required=True, requires=IS_IN_SET(STATES, zero=None), default=def_state),
         Field ('city'),
         Field ('event_date', 'date'),
         Field ('category', requires=IS_EMPTY_OR(IS_IN_SET(CATEGORY))),
