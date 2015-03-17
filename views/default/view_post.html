@@ -4,11 +4,10 @@
 {{if post:}}
 <div class="posting_div span9 big_listing">
     
-        <div>
+        <div class="span6" style="float: left;">
     <h2>
         {{=post.title}}
 </h2>
-            
            </div>
             <div class="posting_info span5">
 <h4>
@@ -36,7 +35,11 @@
     </span>
 </div>
 
-
+{{if auth.user and post.user_id == auth.user.id:}}
+    <div class="row">
+        <a class="profile_link span1 offset8" href={{=URL('delete_post', args=post.id)}}>Delete?</a>
+    </div>
+    {{pass}}
 
 <div class="row" >
     <div class="invite_button span3 offset4" style="padding: 25px 0px 0px 0px;">
